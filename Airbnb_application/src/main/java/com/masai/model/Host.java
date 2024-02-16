@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -28,6 +31,8 @@ public class Host {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int hostId; 
 	
+	private String name;
+	
 	@Enumerated(EnumType.STRING)
 	private StatusEnumType status;
 	
@@ -35,9 +40,11 @@ public class Host {
 
 	private String about;
 	
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	private LocalDate hostingSince;
 	
 	@OneToMany(mappedBy = "host" , cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Property> properties; 
 	
 	

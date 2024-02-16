@@ -19,7 +19,7 @@ public interface BookingsService {
 	
 	public List<Booking> getAllBookings() throws BookingsException;
 	
-	public List<Booking> getBookingsHistoryByGuestId(int userId) throws GuestException;
+	public List<Booking> getBookingsHistoryByGuestId(int guestId) throws GuestException;
 	
 	public String deleteBooking(int bookingId) throws BookingsException;
 	

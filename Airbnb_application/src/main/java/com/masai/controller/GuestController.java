@@ -51,9 +51,9 @@ public class GuestController {
 	}
 	
 	@PutMapping("/updateGuestById/{guestId}")
-	public ResponseEntity<Guest> updateGuestById(@PathVariable int guestId) throws GuestException{
+	public ResponseEntity<Guest> updateGuestById(@PathVariable int guestId,@RequestBody Guest guest) throws GuestException{
 		
-		Guest cat = guestService.updateGuestById(guestId);
+		Guest cat = guestService.updateGuestById(guestId,guest);
 		return new ResponseEntity<>(cat, HttpStatus.OK);
 		
 	}

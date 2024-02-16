@@ -28,13 +28,13 @@ public interface PropertyService {
 	
 	public List<Property> getAllProperties() throws PropertyException;
 	
-	public Property updatePropertyById(int propertyId) throws PropertyException;
+	public Property updatePropertyById(int propertyId,Property property) throws PropertyException;
 	
 	public String deletePropertyById(int propertyId) throws PropertyException;
 	
 	public Property getPropertyByName(String propertyName) throws PropertyException;
 	
-	public List<Property> getPropertiesByLocationAndNumberofGuest(String location,int numberOfGuest) throws PropertyException;
+	public List<Property> getPropertiesByLocationAndNumberofGuest(Integer pageNumber, Integer NumberofRecords,String location,int numberOfGuest) throws PropertyException;
 	
 	public List<Property> searchByPriceRangeAndType(String propertyType, double startingPrice, double endingPrice) throws PropertyException;
 	

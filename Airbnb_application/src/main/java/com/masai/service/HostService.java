@@ -18,7 +18,7 @@ public interface HostService {
 	
 	public List<Host> getAllHost() throws HostException;
 	
-	public Host updateHostById(int hostId) throws HostException;
+	public Host updateHostById(int hostId,Host host) throws HostException;
 	
 	
 }

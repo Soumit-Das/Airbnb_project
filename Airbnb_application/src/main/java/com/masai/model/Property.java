@@ -28,6 +28,8 @@ public class Property {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int propertyId;
 	
+	private String image;
+	
 	private String propertyName;
 	
 	@Enumerated(EnumType.STRING)

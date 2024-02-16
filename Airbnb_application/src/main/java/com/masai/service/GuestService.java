@@ -18,7 +18,7 @@ public interface GuestService {
 	
 	public List<Guest> getAllGuest() throws GuestException;
 	
-	public Guest updateGuestById(int guestId) throws GuestException;
+	public Guest updateGuestById(int guestId,Guest updatedGuest) throws GuestException;
 	
 	public String deleteGuestById(int guestId) throws GuestException;
 	
