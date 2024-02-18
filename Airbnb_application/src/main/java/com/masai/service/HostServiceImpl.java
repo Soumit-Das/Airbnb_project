@@ -89,5 +89,17 @@ public class HostServiceImpl implements HostService{
 		return list;
 
 	}
+
+	@Override
+	public Host getHostByName(String name) throws HostException {
+		
+		Host host = hostRepository.findByName(name);
+		
+		if(host == null) {
+			throw new HostException("Host not found with name "+name);
+		}
+		
+		return host;
+	}
 	
 }

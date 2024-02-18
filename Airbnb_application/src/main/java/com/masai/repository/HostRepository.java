@@ -15,4 +15,7 @@ public interface HostRepository extends JpaRepository<Host, Integer>{
 	@Query("SELECT h FROM Host h LEFT JOIN FETCH h.properties WHERE h.hostId = :hostId")
     Optional<Host> findByIdWithProperties(@Param("hostId") int hostId);
 	
+	@Query("SELECT h FROM Host h WHERE h.name = ?1")
+	public Host findByName(String name);
+	
 }

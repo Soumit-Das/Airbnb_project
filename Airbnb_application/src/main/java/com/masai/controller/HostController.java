@@ -42,6 +42,14 @@ public class HostController {
 		
 	}
 	
+	@GetMapping("/getHostByName/{name}")
+	public ResponseEntity<Host> getHostByName(@PathVariable String name) throws HostException{
+		
+		Host cat = hostService.getHostByName(name);
+		return new ResponseEntity<>(cat, HttpStatus.OK);
+		
+	}
+	
 	@GetMapping("/getAllHost")
 	public ResponseEntity<List<Host>> getAllHost() throws HostException{
 		

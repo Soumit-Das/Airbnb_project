@@ -3,8 +3,235 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Homestead Horizon - Home</title>
+<link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-<h1>Home page</h1>
+
+
+<div class="header">
+        <nav id="navBar">
+            <img src="/images/logo.png" class="logo">
+            <ul class="nav-links">
+                <li><a href="#" class="active">Popular Places</a></li>
+                <li><a href="#">Travel outside</a></li>
+                <li><a onclick="storethequery()">Online Packages</a></li>
+            </ul>
+            <a href="#" onclick="redirectToRegister()" class="register-btn">Register Now</a>
+            <a href="#" onclick="redirectToProfile()" class="register-btn">Profile</a>
+            <i class="fa-solid fa-bars" onclick="togglebtn()"></i>
+        </nav>
+        <div class="container">
+            <h1>Find your next stay</h1>
+            <div class="search-bar">
+                <form id="searchForm">
+    <div class="location-input">
+        <label for="location">Location</label>
+        <input type="text" id="location" placeholder="Where are you going">
+    </div>
+    <div>
+        <label for="checkIn">Check In</label>
+        <input type="text" id="checkIn" placeholder="Add date">
+    </div>
+    <div>
+        <label for="checkOut">Check Out</label>
+        <input type="text" id="checkOut" placeholder="Add date">
+    </div>
+    <div>
+        <label for="guest">Guest</label>
+        <input type="text" id="guest" placeholder="Add Guest">
+    </div>
+    <button type="submit"><img src="/images/search.png" alt=""></button>
+</form>
+            </div>
+        </div>
+    </div>
+<div class="container" id="lower">
+    <h2 class="sub-title">Exclusives</h2>
+    <div class="exclusives">
+        <div>
+            <img src="/images/image-1.png" alt="">
+            <span>
+                <h3>London</h3>
+                <p>Starts @ $250</p>
+            </span>
+        </div>
+        <div>
+            <img src="/images/image-2.png" alt="">
+            <span>
+                <h3>Switzerland</h3>
+                <p>Starts @ $250</p>
+            </span>
+        </div>
+        <div>
+            <img src="/images/image-3.png" alt="">
+            <span>
+                <h3>Australia</h3>
+                <p>Starts @ $250</p>
+            </span>
+        </div>
+        <div>
+            <img src="/images/image-4.png" alt="">
+            <span>
+                <h3>France</h3>
+                <p>Starts @ $250</p>
+            </span>
+        </div>
+        <div>
+            <img src="/images/image-5.png" alt="">
+            <span>
+                <h3>Amsterdam</h3>
+                <p>Starts @ $250</p>
+            </span>
+        </div>
+        <div>
+            <img src="/images/image-6.png" alt="">
+            <span>
+                <h3>Netherlands</h3>
+                <p>Starts @ $250</p>
+            </span>
+        </div>
+        <div>
+            <img src="/images/image-7.png" alt="">
+            <span>
+                <h3>New York</h3>
+                <p>Starts @ $250</p>
+            </span>
+        </div>
+        <div>
+            <img src="/images/image-8.png" alt="">
+            <span>
+                <h3>Chicago</h3>
+                <p>Starts @ $250</p>
+            </span>
+        </div>
+        <div>
+            <img src="/images/image-9.png" alt="">
+            <span>
+                <h3>San Francisco</h3>
+                <p>Starts @ $250</p>
+            </span>
+        </div>
+        <div>
+            <img src="/images/image-10.png" alt="">
+            <span>
+                <h3>Shanghai</h3>
+                <p>Starts @ $250</p>
+            </span>
+        </div>
+    </div>
+    <h2 class="sub-title">Trending Places</h2>
+    <div class="trending">
+        <div>
+            <img src="/images/dubai.png" alt="">
+            <h3>Dubai</h3>
+        </div>
+        <div>
+            <img src="/images/new-york.png" alt="">
+            <h3>New York</h3>
+        </div>
+        <div>
+            <img src="/images/paris.png" alt="">
+            <h3>Paris</h3>
+        </div>
+        <div>
+            <img src="/images/new-delhi.png" alt="">
+            <h3>New Delhi</h3>
+        </div>
+    </div>
+
+    <div class="cta">
+        <h3>Sharing <br>is Earning Now</h3>
+        <p>Great opportunity to make money by <br>sharing your extra space.</p>
+        <a href="#" class="cta-btn">Know More</a>
+    </div>
+
+    <h2 class="sub-title">Travellers Stories</h2>
+    <div class="stories">
+        <div>
+            <img src="/images/story-1.png" alt="">
+            <p>Popular European countries with a budget of just $10,000</p>
+        </div>
+        <div>
+            <img src="/images/story-2.png" alt="">
+            <p>Travelled more than 100 countries in less than a year</p>
+        </div>
+        <div>
+            <img src="/images/story-3.png" alt="">
+            <p>Best experience you get while travelling to Thailand</p>
+        </div>
+    </div>
+
+    <a href="#" class="start-btn">Start making money</a>
+
+    <div class="about-msg">
+        <h2>About Homestead Horizon</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed voluptatibus nisi, eum error, laborum optio deserunt dolore modi saepe tenetur tempora officiis! Alias iste impedit cum dignissimos sint iure sapiente voluptates temporibus exercitationem sequi labore aliquam excepturi quo quam repellat quia voluptatibus dolores, deserunt asperiores repudiandae nihil esse. Earum in eligendi voluptatibus ipsam officia repudiandae consequuntur dolor amet eos totam?</p>
+    </div>
+
+    <div class="footer">
+        <a href="https://facebook.com/"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://youtube.com/"><i class="fa-brands fa-youtube"></i></a>
+        <a href="https://twitter.com/"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="https://linkedIn.com/"><i class="fa-brands fa-linked-in"></i></a>
+        <a href="https://instagram.com/"><i class="fa-brands fa-instagram"></i></a>
+        <hr>
+        <p>Copyright @ 2024, Homestead Horizon</p>
+    </div>
+
+</div>
+<script>
+    var navBar = document.getElementById("navBar");
+
+    function togglebtn(){
+        navBar.classList.toggle("hidemenu");
+    }
+
+	function storethequery(){
+		var query = "All properties";
+
+                // Store the hostData object in the local storage
+              localStorage.setItem("query", JSON.stringify(query));
+              window.location.href = "propertyListings";
+	}
+
+	function redirectToRegister(){
+		
+		window.location.href = "/";
+		
+	}
+	function redirectToProfile(){
+		
+		window.location.href = "/guest/profile";
+		
+	}
+
+
+	document.getElementById('searchForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Extract details from form input fields
+        const location = document.getElementById('location').value;
+        const guest = document.getElementById('guest').value;
+
+        // Delete data from localStorage
+        localStorage.removeItem('query');
+
+        // Save input fields data to localStorage
+        const formData = {
+            location: location,
+            guest: guest
+        };
+        localStorage.setItem('query', JSON.stringify(formData));
+
+        // Redirect or perform any other action as needed
+        // For example, redirect to a search results page
+        window.location.href = 'propertyListings';
+    });
+
+
+</script>
+
 </body>
 </html>

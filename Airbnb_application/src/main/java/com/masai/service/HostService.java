@@ -17,6 +17,8 @@ public interface HostService {
 	
 	public Host getHostById(int hostId) throws HostException;
 	
+	public Host getHostByName(String name) throws HostException;
+	
 	public List<Host> getAllHost() throws HostException;
 	
 	public Host updateHostById(int hostId,Host host) throws HostException;
