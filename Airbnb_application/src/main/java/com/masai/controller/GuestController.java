@@ -26,6 +26,38 @@ public class GuestController {
 	@Autowired
 	private GuestService guestService;
 	
+	
+	@GetMapping("/home")
+	public String home() {
+		
+		return "home";
+		
+	}
+	
+	@GetMapping("/profile")
+	public String profile() {
+		
+		return "guest_profile";
+		
+	}
+	
+	
+	@GetMapping("/propertyListings")
+	public String productListings() {
+		
+		return "Property_listings";
+		
+	}
+	
+	
+	@GetMapping("/PropertyDetails")
+	public String productPage() {
+		
+		return "Property_details";
+		
+	}
+	
+	
 	@PostMapping("/createGuest")
 	public ResponseEntity<Guest> createGuest(@RequestBody Guest guest) throws GuestException{
 		

@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.masai.exception.PropertyException;
 import com.masai.model.Property;
+import com.masai.model.PropertyTypeEnum;
 
 public interface PropertyService {
 
@@ -38,7 +39,7 @@ public interface PropertyService {
 	
 	public List<Property> searchByPriceRangeAndType(String propertyType, double startingPrice, double endingPrice) throws PropertyException;
 	
-	public List<Property> getSortedPropertyTypeListPageWise(Integer pageNumber, Integer NumberofRecords, String Type,
+	public List<Property> getSortedPropertyTypeListPageWise(Integer pageNumber, Integer NumberofRecords, String propertyType,
 			String direction, String field);
 	
 }

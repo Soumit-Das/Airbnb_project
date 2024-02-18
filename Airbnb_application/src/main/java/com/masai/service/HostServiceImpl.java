@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.masai.exception.HostException;
 import com.masai.model.Host;
+import com.masai.model.Property;
 import com.masai.repository.HostRepository;
 
 @Service
@@ -70,6 +71,23 @@ public class HostServiceImpl implements HostService{
 		
 		
 		return hostRepository.save(h);
+	}
+
+	@Override
+	public List<Property> getPropertyByHostId(int hostId) throws HostException {
+		
+		if(!hostRepository.existsById(hostId)) {
+			throw new HostException("host doesn't exists with id "+hostId);
+		}
+		
+		Optional<Host> host = hostRepository.findById(hostId);
+		
+		Host h = host.get();
+		
+		List<Property> list = h.getProperties();
+		
+		return list;
+
 	}
 	
 }

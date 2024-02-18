@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.masai.exception.HostException;
 import com.masai.model.Guest;
 import com.masai.model.Host;
+import com.masai.model.Property;
 import com.masai.service.HostService;
 
 @Controller
@@ -55,6 +56,13 @@ public class HostController {
 		Host cat = hostService.updateHostById(hostId,host);
 		return new ResponseEntity<>(cat, HttpStatus.OK);
 		
+	}
+	
+	@GetMapping("/getPropertyByHostId/{hostId}")
+	public ResponseEntity<List<Property>> getPropertyByHostId(@PathVariable int hostId) throws HostException {
+		
+		List<Property> list = hostService.getPropertyByHostId(hostId);
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
 	

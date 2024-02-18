@@ -15,6 +15,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,11 +35,13 @@ public class Guest {
 	@Enumerated(EnumType.STRING)
 	private GenderEnumType gender;
 	
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	private LocalDate dob;
 	
 	private String bio;
 	
 	@OneToMany(mappedBy = "guest",cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Booking> bookings;
 	
 }

@@ -32,8 +32,7 @@ public class Property {
 	
 	private String propertyName;
 	
-	@Enumerated(EnumType.STRING)
-	private PropertyTypeEnum propertyType;
+	private String propertyType;
 	
 	private String location;
 	

@@ -20,6 +20,7 @@ import com.masai.exception.PropertyException;
 import com.masai.model.Guest;
 import com.masai.model.Host;
 import com.masai.model.Property;
+import com.masai.model.PropertyTypeEnum;
 import com.masai.service.HostService;
 import com.masai.service.PropertyService;
 
@@ -106,11 +107,11 @@ public class PropertyController {
 		
 	}
 	
-	@GetMapping("/getSortedPropertyTypeListPageWise/{Type}/{direction}/{field}/{pageNumber}")
-	public ResponseEntity<List<Property>> getSortedPropertyTypeListPageWise(@PathVariable Integer pageNumber,@RequestParam Integer NumberofRecords,@PathVariable String Type,
+	@GetMapping("/getSortedPropertyTypeListPageWise/{propertyType}/{direction}/{field}/{pageNumber}")
+	public ResponseEntity<List<Property>> getSortedPropertyTypeListPageWise(@PathVariable Integer pageNumber,@RequestParam Integer NumberofRecords,@PathVariable String propertyType,
 			@PathVariable String direction,@PathVariable String field){
 		
-		List<Property> list = propertyService.getSortedPropertyTypeListPageWise(pageNumber, NumberofRecords, Type, direction, field);
+		List<Property> list = propertyService.getSortedPropertyTypeListPageWise(pageNumber, NumberofRecords, propertyType, direction, field);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 		
 	}

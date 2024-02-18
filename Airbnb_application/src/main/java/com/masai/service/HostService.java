@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.masai.exception.HostException;
 import com.masai.model.Host;
+import com.masai.model.Property;
 
 public interface HostService {
 
@@ -20,5 +21,6 @@ public interface HostService {
 	
 	public Host updateHostById(int hostId,Host host) throws HostException;
 	
+	public List<Property> getPropertyByHostId(int hostId) throws HostException;
 	
 }

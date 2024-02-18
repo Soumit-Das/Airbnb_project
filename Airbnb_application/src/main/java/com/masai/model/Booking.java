@@ -2,6 +2,8 @@ package com.masai.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,6 +28,7 @@ public class Booking {
 	
 	@ManyToOne
 	@JoinColumn(name = "propertyId")
+	@JsonIgnoreProperties("bookings")
 	private Property property;
 	
 	@ManyToOne

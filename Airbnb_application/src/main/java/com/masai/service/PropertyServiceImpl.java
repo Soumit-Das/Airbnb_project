@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.masai.exception.PropertyException;
 import com.masai.model.Property;
+import com.masai.model.PropertyTypeEnum;
 import com.masai.repository.PropertyRepository;
 
 @Service
@@ -134,14 +135,14 @@ public class PropertyServiceImpl implements PropertyService{
 	}
 
 	@Override
-	public List<Property> getSortedPropertyTypeListPageWise(Integer pageNumber, Integer NumberofRecords, String Type,
+	public List<Property> getSortedPropertyTypeListPageWise(Integer pageNumber, Integer NumberofRecords, String propertyType,
 			String direction, String field) {
 		
 		Sort sort = direction.equals("asc") ? Sort.by(field).ascending() : Sort.by(field).descending();
 
 		Pageable p = PageRequest.of(pageNumber - 1, NumberofRecords, sort);
 
-		Page<Property> page = propertyRepository.findByTypeofProperty(Type, p);
+		Page<Property> page = propertyRepository.findByTypeofProperty(propertyType, p);
 
 		List<Property> list = page.getContent();
 

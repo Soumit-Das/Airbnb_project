@@ -31,8 +31,8 @@ public class BookingsServiceImpl implements BookingsService{
 	@Override
 	public List<Booking> getBookingsByLocation(String location) throws BookingsException {
 		
-//		List<Booking> list = bookingRepository.findByLocation(location);
-		List<Booking> list = new ArrayList<>();
+		List<Booking> list = bookingRepository.findByLocation(location);
+//		List<Booking> list = new ArrayList<>();
 		
 		if(list.size() < 1) {
 			throw new BookingsException("No bookings are present in "+location);
@@ -56,8 +56,8 @@ public class BookingsServiceImpl implements BookingsService{
 	@Override
 	public List<Booking> getBookingsHistoryByGuestId(int guestId) throws GuestException {
 		
-//		List<Booking> list = bookingRepository.findBookingsHistoryByGuestId(guestId);
-		List<Booking> list = new ArrayList<>();
+		List<Booking> list = bookingRepository.findBookingsHistoryByGuestId(guestId);
+//		List<Booking> list = new ArrayList<>();
 		if(list.size() < 1) {
 			throw new GuestException("No bookings are present for the guest");
 		}
