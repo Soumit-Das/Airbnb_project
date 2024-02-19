@@ -116,4 +116,19 @@ public class PropertyController {
 		
 	}
 	
+	@GetMapping("/getPropertiesByLocationAndNumberofGuestAndType/{location}/{numberOfGuest}/{propertyType}/{pageNumber}")
+	public ResponseEntity<List<Property>> getPropertiesByLocationAndNumberofGuestAndType(
+	        @PathVariable Integer pageNumber,
+	        @RequestParam Integer NumberofRecords,
+	        @PathVariable String location,
+	        @PathVariable int numberOfGuest,
+	        @PathVariable String propertyType) throws PropertyException {
+	    
+	    List<Property> list = propertyService.getPropertiesByLocationAndNumberofGuestandType(
+	            pageNumber, NumberofRecords, location, numberOfGuest, propertyType);
+	    return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	
+	
 }

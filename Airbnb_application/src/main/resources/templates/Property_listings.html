@@ -34,35 +34,33 @@
             </div>
             <div class="right-col">
                 <div class="sidebar">
-                    <h2>Select Filters</h2>
-                    <h3>Property Type</h3>
-                    <div class="filter">
-                        <input type="checkbox"> <p>House</p> <span>(0)</span>
-                    </div>
-                    <div class="filter">
-                        <input type="checkbox"> <p>Hostel</p> <span>(0)</span>
-                    </div>
-                    <div class="filter">
-                        <input type="checkbox"> <p>Flat</p> <span>(0)</span>
-                    </div>
-                    <div class="filter">
-                        <input type="checkbox"> <p>Villa</p> <span>(0)</span>
-                    </div>
-                    <div class="filter">
-                        <input type="checkbox"> <p>Guest Suite</p> <span>(0)</span>
-                    </div>
-                    
-                    <div class="sidebar-link">
-                        <a href="#">View More</a>
-                    </div>
-
-                </div>
+    <h2>Select Filters</h2>
+    <h3>Property Type</h3>
+    <div class="filter" id="houseFilter">
+        <input type="checkbox"> <p>House</p> <span>(0)</span>
+    </div>
+    <div class="filter" id="hostelFilter">
+        <input type="checkbox"> <p>Hostel</p> <span>(0)</span>
+    </div>
+    <div class="filter" id="flatFilter">
+        <input type="checkbox"> <p>Flat</p> <span>(0)</span>
+    </div>
+    <div class="filter" id="villaFilter">
+        <input type="checkbox"> <p>Villa</p> <span>(0)</span>
+    </div>
+    <div class="filter" id="guestSuiteFilter">
+        <input type="checkbox"> <p>Guest Suite</p> <span>(0)</span>
+    </div>
+    <div class="sidebar-link">
+        <a href="#">View More</a>
+    </div>
+</div>
             </div>
         </div>
 
 
 <div class="pagination">
-    <img src="Staybnb-img/images/arrow.png" alt="">
+    <img src="/images/arrow.png" alt="">
     <span class="current">1</span>
     <span>2</span>
     <span>3</span>
@@ -70,7 +68,7 @@
     <span>5</span>
     <span>&middot; &middot; &middot; &middot;</span>
     <span>20</span>
-    <img src="Staybnb-img/images/arrow.png" class="right-arrow" alt="">
+    <img src="/images/arrow.png" class="right-arrow" alt="">
 </div>
 
     <div class="footer">
@@ -104,6 +102,7 @@
             // Clear existing content
             propertiesContainer.innerHTML = '';
 			const propertyNumbers = document.createElement('p');
+			
                 propertyNumbers.textContent = "200+ Options";
 
                 const Locationdetails = document.createElement('h1');
@@ -133,7 +132,7 @@
                 houseInfoDiv.classList.add('house-info');
 
                 const propertyNameP = document.createElement('p');
-                propertyNameP.textContent = "Private villa in "+property.location;
+                propertyNameP.textContent = "Private " + property.propertyType+ " in " + property.location;
 
                 const propertyTypeH3 = document.createElement('h3');
                 propertyTypeH3.textContent = property.propertyName;
@@ -242,7 +241,7 @@ function fetchPropertiesByLocationAndNumberofGuest(location,numberOfGuest,pageNu
                 houseInfoDiv.classList.add('house-info');
 
                 const propertyNameP = document.createElement('p');
-                propertyNameP.textContent = "Private villa in " + property.location;
+                propertyNameP.textContent = "Private " + property.propertyType+ " in " + property.location;;
 
                 const propertyTypeH3 = document.createElement('h3');
                 propertyTypeH3.textContent = property.propertyName;
@@ -293,6 +292,189 @@ function fetchPropertiesByLocationAndNumberofGuest(location,numberOfGuest,pageNu
 
 }
 
+
+	
+		
+		document.getElementById('houseFilter').addEventListener('click', () => {
+        filterProperties('House');
+        alert("helloo")
+    });
+
+    document.getElementById('hostelFilter').addEventListener('click', () => {
+        filterProperties('Hostel');
+    });
+
+    document.getElementById('flatFilter').addEventListener('click', () => {
+        filterProperties('Flat');
+    });
+
+    document.getElementById('villaFilter').addEventListener('click', () => {
+        filterProperties('Villa');
+        alert("helloo")
+    });
+
+    document.getElementById('guestSuiteFilter').addEventListener('click', () => {
+        filterProperties('Guest Suite');
+    });
+
+    // Function to fetch properties based on filter options
+    
+    
+    
+    var count = 0;	
+    
+    function filterProperties(propertyType) {
+		
+		if(count == 0){
+			propertiesContainer.innerHTML = '';
+		}
+		count++;
+		 
+		
+		var storedQuery = localStorage.getItem("query");
+		
+		var query = JSON.parse(storedQuery);
+		
+		console.log('Location:', query.location);
+        console.log('Guest:', query.guest);
+		
+		
+        const location = query.location; 
+        const numberOfGuest = query.guest; 
+        const pageNumber = 1; 
+        const numberOfRecords = 3;
+        
+        const pageNumbers = document.querySelectorAll('.pagination span');
+        alert("helloo") 
+        
+        // here is the error bcz the compiler is not enters pageNumbers.forEach method 
+        
+        pageNumbers.forEach(span => {
+    	span.addEventListener('click', function() {
+        
+        pagenumber = parseInt(span.textContent);
+
+        
+        pageNumbers.forEach(span => {
+            span.classList.remove('current');
+        });
+
+       
+        span.classList.add('current');
+
+        const propertiesContainer = document.getElementById('propertiesContainer');
+        propertiesContainer.innerHTML = '';
+
+        
+        const uri = `http://localhost:8888/property/getPropertiesByLocationAndNumberofGuestAndType/${location}/${numberOfGuest}/${propertyType}/${pagenumber}?NumberofRecords=${numberOfRecords}`;
+		
+        // Fetch properties using the constructed URI
+        fetch(uri)
+            .then(response => response.json())
+            .then(data => {
+                
+			console.log(data);
+			alert("hello");
+            const propertyNumbers = document.createElement('p');
+            propertyNumbers.textContent = "200+ Options";
+
+            const Locationdetails = document.createElement('h1');
+            Locationdetails.textContent = "Recommended Places In " + location;
+
+            propertiesContainer.appendChild(propertyNumbers);
+            propertiesContainer.appendChild(Locationdetails);
+
+            // Loop through each property listing and create HTML elements
+            data.forEach(property => {
+                const houseDiv = document.createElement('div');
+                houseDiv.classList.add('house');
+
+				houseDiv.dataset.propertyId = property.propertyId;
+
+    // Add click event listener
+    houseDiv.addEventListener('click', function() {
+        // Get the propertyId when clicked
+        const propertyId = this.dataset.propertyId;
+        
+        // Store the propertyId in localStorage
+        localStorage.setItem('propertyId', propertyId);
+        
+        // Redirect to another page if needed
+         window.location.href = 'http://localhost:8888/property/propertyDetails'; // Example redirection
+    });
+
+                const houseImgDiv = document.createElement('div');
+                houseImgDiv.classList.add('house-img');
+
+                const img = document.createElement('img');
+                img.src = property.image;
+                img.alt = property.propertyName;
+
+                houseImgDiv.appendChild(img);
+
+                const houseInfoDiv = document.createElement('div');
+                houseInfoDiv.classList.add('house-info');
+
+                const propertyNameP = document.createElement('p');
+                propertyNameP.textContent = "Private " + propertyType+ " in " + property.location;
+
+                const propertyTypeH3 = document.createElement('h3');
+                propertyTypeH3.textContent = property.propertyName;
+
+                const amenities = document.createElement('p');
+                amenities.textContent = "1 Bedroom / 1 Bathroom / wifi / Kitchen";
+
+                const starIcon1 = document.createElement('i');
+                starIcon1.classList.add('fa-solid', 'fa-star');
+                const starIcon2 = document.createElement('i');
+                starIcon2.classList.add('fa-solid', 'fa-star');
+                const starIcon3 = document.createElement('i');
+                starIcon3.classList.add('fa-solid', 'fa-star');
+                const starIcon4 = document.createElement('i');
+                starIcon4.classList.add('fa-solid', 'fa-star-half-stroke');
+                const starIcon5 = document.createElement('i');
+                starIcon5.classList.add('fa-regular', 'fa-star');
+
+                const housePriceDiv = document.createElement('div');
+                housePriceDiv.classList.add('house-price');
+
+                const GuestLimit = document.createElement('p');
+                GuestLimit.textContent = property.capacity + " Guests";
+
+                const propertyPrice = document.createElement('h4');
+                propertyPrice.textContent = "₹ " + property.price + "/ day";
+
+                housePriceDiv.appendChild(GuestLimit);
+                housePriceDiv.appendChild(propertyPrice);
+
+                houseInfoDiv.appendChild(propertyNameP);
+                houseInfoDiv.appendChild(propertyTypeH3);
+                houseInfoDiv.appendChild(amenities);
+                houseInfoDiv.appendChild(starIcon1);
+                houseInfoDiv.appendChild(starIcon2);
+                houseInfoDiv.appendChild(starIcon3);
+                houseInfoDiv.appendChild(starIcon4);
+                houseInfoDiv.appendChild(starIcon5);
+                houseInfoDiv.appendChild(housePriceDiv);
+
+                houseDiv.appendChild(houseImgDiv);
+                houseDiv.appendChild(houseInfoDiv);
+
+                propertiesContainer.appendChild(houseDiv);
+            });
+            })
+            .catch(error => console.error('Error fetching properties:', error));
+        
+        
+    });
+});	
+
+
+      
+        
+    }
+		
+	
 
 
 	function getQuery(){

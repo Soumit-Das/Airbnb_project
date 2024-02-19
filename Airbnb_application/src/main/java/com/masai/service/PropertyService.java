@@ -42,4 +42,8 @@ public interface PropertyService {
 	public List<Property> getSortedPropertyTypeListPageWise(Integer pageNumber, Integer NumberofRecords, String propertyType,
 			String direction, String field);
 	
+	
+	public List<Property> getPropertiesByLocationAndNumberofGuestandType(Integer pageNumber, Integer NumberofRecords,String location,int numberOfGuest,String propertyType) throws PropertyException;
+	
+	
 }

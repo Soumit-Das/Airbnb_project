@@ -35,4 +35,8 @@ public interface PropertyRepository extends JpaRepository<Property, Integer>, Pa
 	@Query("SELECT p FROM Property p WHERE p.propertyType = ?1")
 	Page<Property> findByTypeofProperty(String propertyType, Pageable p);
 	
+	@Query("SELECT p FROM Property p WHERE p.location = ?1 AND p.capacity = ?2 AND p.propertyType = ?3")
+	Page<Property> findPropertiesByLocationAndNumberofGuestPageWiseAndType(String location,int capacity,String propertyType,Pageable p);
+	
+	
 }

@@ -149,5 +149,23 @@ public class PropertyServiceImpl implements PropertyService{
 		return list;
 
 	}
+
+	@Override
+	public List<Property> getPropertiesByLocationAndNumberofGuestandType(Integer pageNumber, Integer NumberofRecords,
+			String location, int numberOfGuest, String propertyType) throws PropertyException {
+		
+		Pageable p = PageRequest.of(pageNumber - 1, NumberofRecords);
+
+		Page<Property> page = propertyRepository.findPropertiesByLocationAndNumberofGuestPageWiseAndType(location, numberOfGuest, propertyType, p);
+
+		List<Property> list = page.getContent();
+		
+		if(list.isEmpty()) {
+			throw new PropertyException("No properties found");
+		}
+		
+		return list;
+
+	}
 	
 }
