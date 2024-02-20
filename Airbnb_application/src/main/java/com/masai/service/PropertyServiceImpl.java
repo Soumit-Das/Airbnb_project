@@ -167,5 +167,32 @@ public class PropertyServiceImpl implements PropertyService{
 		return list;
 
 	}
+
+	@Override
+	public List<Property> getSortedPropertyTypeListByLocationByNumberofGuestPageWise(Integer pageNumber,
+			Integer NumberofRecords, String propertyType, String location, int numberOfGuest, String direction,
+			String field) {
+		
+//		Sort sort = direction.equals("asc") ? Sort.by(field).ascending() : Sort.by(field).descending();
+//
+//		Pageable p = PageRequest.of(pageNumber - 1, NumberofRecords, sort);
+//
+//		Page<Products> page = productRepository.findByTypeofProduct(Type, p);
+//
+//		List<Products> list = page.getContent();
+//
+//		return list;
+		
+		Sort sort = direction.equals("asc") ? Sort.by(field).ascending() : Sort.by(field).descending();
+
+		Pageable p = PageRequest.of(pageNumber - 1, NumberofRecords, sort);
+
+		Page<Property> page = propertyRepository.findPropertiesByLocationAndNumberofGuestPageWiseAndType(location, numberOfGuest, propertyType, p);
+
+		List<Property> list = page.getContent();
+
+		return list;
+
+	}
 	
 }

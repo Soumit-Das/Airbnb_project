@@ -129,6 +129,14 @@ public class PropertyController {
 	    return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
-	
+	@GetMapping("/getSortedPropertyTypeListByLocationByNumberofGuestPageWise/{pageNumber}/{propertyType}/{location}/{numberOfGuest}/{direction}/{field}")
+	public ResponseEntity<List<Property>> getSortedPropertyTypeListByLocationByNumberofGuestPageWise(@PathVariable Integer pageNumber,
+			@RequestParam Integer NumberofRecords,@PathVariable String propertyType,@PathVariable String location,@PathVariable int numberOfGuest,@PathVariable String direction,
+			@PathVariable String field){
+		
+		List<Property> list = propertyService.getSortedPropertyTypeListByLocationByNumberofGuestPageWise(pageNumber, NumberofRecords, propertyType, location, numberOfGuest, direction, field);
+	    return new ResponseEntity<>(list, HttpStatus.OK);
+		
+	}
 	
 }

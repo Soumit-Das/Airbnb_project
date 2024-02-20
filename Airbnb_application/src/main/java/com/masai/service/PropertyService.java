@@ -45,5 +45,9 @@ public interface PropertyService {
 	
 	public List<Property> getPropertiesByLocationAndNumberofGuestandType(Integer pageNumber, Integer NumberofRecords,String location,int numberOfGuest,String propertyType) throws PropertyException;
 	
-	
+	// Make a method that will filter by location , number of guest and type and sort by price low to high and high to low 
+
+	public List<Property> getSortedPropertyTypeListByLocationByNumberofGuestPageWise(Integer pageNumber, Integer NumberofRecords, String propertyType, String location,int numberOfGuest,
+			String direction, String field);
+
 }

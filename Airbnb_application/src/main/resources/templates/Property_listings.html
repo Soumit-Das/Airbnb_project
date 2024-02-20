@@ -23,6 +23,16 @@
         <i class="fa-solid fa-bars" onclick="togglebtn()"></i>
     </nav>
 
+<div class="dropdown">
+  <button class="dropbtn">Sort By</button>
+  <div class="dropdown-content">
+    <a href="#" id="priceLowToHigh">Price Low to High</a>
+    <a href="#" id="priceHighToLow">Price High to Low</a>
+    <!-- Add more sorting options as needed -->
+  </div>
+</div>
+
+
 
 <div class="container" id="lower">
 
@@ -92,14 +102,14 @@
             navBar.classList.toggle("hidemenu");
         }
     
-    // fetching properties using the below js method
+ 
     function fetchAllProperties() {
     fetch('http://localhost:8888/property/getAllProperties')
         .then(response => response.json())
         .then(data => {
             const propertiesContainer = document.getElementById('propertiesContainer');
 
-            // Clear existing content
+
             propertiesContainer.innerHTML = '';
 			const propertyNumbers = document.createElement('p');
 			
@@ -110,7 +120,7 @@
                 
                 propertiesContainer.appendChild(propertyNumbers);
 				propertiesContainer.appendChild(Locationdetails);
-            // Loop through each property listing and create HTML elements
+           
             data.forEach(property => {
 	
 				
@@ -163,7 +173,7 @@
                 
                 housePriceDiv.appendChild(GuestLimit);
                 housePriceDiv.appendChild(propertyPrice);
-                // Add more elements as needed...
+         
 
                 houseInfoDiv.appendChild(propertyNameP);
                 houseInfoDiv.appendChild(propertyTypeH3);
@@ -174,7 +184,7 @@
                 houseInfoDiv.appendChild(starIcon4);
                 houseInfoDiv.appendChild(starIcon5);
                 houseInfoDiv.appendChild(housePriceDiv);
-                // Append more elements as needed...
+       
 
                 houseDiv.appendChild(houseImgDiv);
                 houseDiv.appendChild(houseInfoDiv);
@@ -197,7 +207,7 @@ function fetchPropertiesByLocationAndNumberofGuest(location,numberOfGuest,pageNu
         .then(data => {
             const propertiesContainer = document.getElementById('propertiesContainer');
 
-            // Clear existing content
+
             propertiesContainer.innerHTML = '';
 
             const propertyNumbers = document.createElement('p');
@@ -209,23 +219,23 @@ function fetchPropertiesByLocationAndNumberofGuest(location,numberOfGuest,pageNu
             propertiesContainer.appendChild(propertyNumbers);
             propertiesContainer.appendChild(Locationdetails);
 
-            // Loop through each property listing and create HTML elements
+
             data.forEach(property => {
                 const houseDiv = document.createElement('div');
                 houseDiv.classList.add('house');
 
 				houseDiv.dataset.propertyId = property.propertyId;
 
-    // Add click event listener
+
     houseDiv.addEventListener('click', function() {
-        // Get the propertyId when clicked
+
         const propertyId = this.dataset.propertyId;
         
-        // Store the propertyId in localStorage
+
         localStorage.setItem('propertyId', propertyId);
         
-        // Redirect to another page if needed
-         window.location.href = 'http://localhost:8888/property/propertyDetails'; // Example redirection
+
+         window.location.href = 'http://localhost:8888/property/propertyDetails';
     });
 
                 const houseImgDiv = document.createElement('div');
@@ -293,36 +303,41 @@ function fetchPropertiesByLocationAndNumberofGuest(location,numberOfGuest,pageNu
 }
 
 
-	
+	var propType = "";
 		
 		document.getElementById('houseFilter').addEventListener('click', () => {
         filterProperties('House');
+        propType = "House";
         alert("helloo")
     });
 
     document.getElementById('hostelFilter').addEventListener('click', () => {
         filterProperties('Hostel');
+        propType = "Hostel";
     });
 
     document.getElementById('flatFilter').addEventListener('click', () => {
         filterProperties('Flat');
+        propType = "Flat";
     });
 
     document.getElementById('villaFilter').addEventListener('click', () => {
         filterProperties('Villa');
+        propType = "Villa";
         alert("helloo")
     });
 
     document.getElementById('guestSuiteFilter').addEventListener('click', () => {
         filterProperties('Guest Suite');
+        propType = "Guest Suite";
     });
 
-    // Function to fetch properties based on filter options
+
     
     
     
     var count = 0;	
-    
+    var flag = false;
     function filterProperties(propertyType) {
 		
 		if(count == 0){
@@ -345,36 +360,21 @@ function fetchPropertiesByLocationAndNumberofGuest(location,numberOfGuest,pageNu
         const numberOfRecords = 3;
         
         const pageNumbers = document.querySelectorAll('.pagination span');
-        alert("helloo") 
         
-        // here is the error bcz the compiler is not enters pageNumbers.forEach method 
         
-        pageNumbers.forEach(span => {
-    	span.addEventListener('click', function() {
+        // normal fetch when pagenumber is 1
         
-        pagenumber = parseInt(span.textContent);
-
-        
-        pageNumbers.forEach(span => {
-            span.classList.remove('current');
-        });
-
-       
-        span.classList.add('current');
-
-        const propertiesContainer = document.getElementById('propertiesContainer');
-        propertiesContainer.innerHTML = '';
-
-        
-        const uri = `http://localhost:8888/property/getPropertiesByLocationAndNumberofGuestAndType/${location}/${numberOfGuest}/${propertyType}/${pagenumber}?NumberofRecords=${numberOfRecords}`;
+        const uri = `http://localhost:8888/property/getPropertiesByLocationAndNumberofGuestAndType/${location}/${numberOfGuest}/${propertyType}/${pageNumber}?NumberofRecords=${numberOfRecords}`;
 		
-        // Fetch properties using the constructed URI
+ 
         fetch(uri)
             .then(response => response.json())
             .then(data => {
                 
 			console.log(data);
-			alert("hello");
+			alert("normal fetch");
+			const propertiesContainer = document.getElementById('propertiesContainer');
+        	propertiesContainer.innerHTML = '';
             const propertyNumbers = document.createElement('p');
             propertyNumbers.textContent = "200+ Options";
 
@@ -384,23 +384,21 @@ function fetchPropertiesByLocationAndNumberofGuest(location,numberOfGuest,pageNu
             propertiesContainer.appendChild(propertyNumbers);
             propertiesContainer.appendChild(Locationdetails);
 
-            // Loop through each property listing and create HTML elements
+
             data.forEach(property => {
                 const houseDiv = document.createElement('div');
                 houseDiv.classList.add('house');
 
 				houseDiv.dataset.propertyId = property.propertyId;
 
-    // Add click event listener
+
     houseDiv.addEventListener('click', function() {
-        // Get the propertyId when clicked
+
         const propertyId = this.dataset.propertyId;
         
-        // Store the propertyId in localStorage
         localStorage.setItem('propertyId', propertyId);
-        
-        // Redirect to another page if needed
-         window.location.href = 'http://localhost:8888/property/propertyDetails'; // Example redirection
+       
+         window.location.href = 'http://localhost:8888/property/propertyDetails'; 
     });
 
                 const houseImgDiv = document.createElement('div');
@@ -466,6 +464,130 @@ function fetchPropertiesByLocationAndNumberofGuest(location,numberOfGuest,pageNu
             .catch(error => console.error('Error fetching properties:', error));
         
         
+        // here is the error bcz the compiler is not enters pageNumbers.forEach method 
+        
+        pageNumbers.forEach(span => {
+    	span.addEventListener('click', function() {
+        
+        pagenumber = parseInt(span.textContent);
+
+        
+        pageNumbers.forEach(span => {
+            span.classList.remove('current');
+        });
+
+       
+        span.classList.add('current');
+
+        const propertiesContainer = document.getElementById('propertiesContainer');
+        propertiesContainer.innerHTML = '';
+
+        
+        const uri = `http://localhost:8888/property/getPropertiesByLocationAndNumberofGuestAndType/${location}/${numberOfGuest}/${propertyType}/${pagenumber}?NumberofRecords=${numberOfRecords}`;
+		
+		if(flag == false){
+			
+        fetch(uri)
+            .then(response => response.json())
+            .then(data => {
+                
+			console.log(data);
+			alert("fetch on pagenumber click");
+			const propertiesContainer = document.getElementById('propertiesContainer');
+        	propertiesContainer.innerHTML = '';
+            const propertyNumbers = document.createElement('p');
+            propertyNumbers.textContent = "200+ Options";
+
+            const Locationdetails = document.createElement('h1');
+            Locationdetails.textContent = "Recommended Places In " + location;
+
+            propertiesContainer.appendChild(propertyNumbers);
+            propertiesContainer.appendChild(Locationdetails);
+
+            
+            data.forEach(property => {
+                const houseDiv = document.createElement('div');
+                houseDiv.classList.add('house');
+
+				houseDiv.dataset.propertyId = property.propertyId;
+
+    
+    houseDiv.addEventListener('click', function() {
+        
+        const propertyId = this.dataset.propertyId;
+        
+        
+        localStorage.setItem('propertyId', propertyId);
+        
+        
+         window.location.href = 'http://localhost:8888/property/propertyDetails'; 
+    });
+
+                const houseImgDiv = document.createElement('div');
+                houseImgDiv.classList.add('house-img');
+
+                const img = document.createElement('img');
+                img.src = property.image;
+                img.alt = property.propertyName;
+
+                houseImgDiv.appendChild(img);
+
+                const houseInfoDiv = document.createElement('div');
+                houseInfoDiv.classList.add('house-info');
+
+                const propertyNameP = document.createElement('p');
+                propertyNameP.textContent = "Private " + propertyType+ " in " + property.location;
+
+                const propertyTypeH3 = document.createElement('h3');
+                propertyTypeH3.textContent = property.propertyName;
+
+                const amenities = document.createElement('p');
+                amenities.textContent = "1 Bedroom / 1 Bathroom / wifi / Kitchen";
+
+                const starIcon1 = document.createElement('i');
+                starIcon1.classList.add('fa-solid', 'fa-star');
+                const starIcon2 = document.createElement('i');
+                starIcon2.classList.add('fa-solid', 'fa-star');
+                const starIcon3 = document.createElement('i');
+                starIcon3.classList.add('fa-solid', 'fa-star');
+                const starIcon4 = document.createElement('i');
+                starIcon4.classList.add('fa-solid', 'fa-star-half-stroke');
+                const starIcon5 = document.createElement('i');
+                starIcon5.classList.add('fa-regular', 'fa-star');
+
+                const housePriceDiv = document.createElement('div');
+                housePriceDiv.classList.add('house-price');
+
+                const GuestLimit = document.createElement('p');
+                GuestLimit.textContent = property.capacity + " Guests";
+
+                const propertyPrice = document.createElement('h4');
+                propertyPrice.textContent = "₹ " + property.price + "/ day";
+
+                housePriceDiv.appendChild(GuestLimit);
+                housePriceDiv.appendChild(propertyPrice);
+
+                houseInfoDiv.appendChild(propertyNameP);
+                houseInfoDiv.appendChild(propertyTypeH3);
+                houseInfoDiv.appendChild(amenities);
+                houseInfoDiv.appendChild(starIcon1);
+                houseInfoDiv.appendChild(starIcon2);
+                houseInfoDiv.appendChild(starIcon3);
+                houseInfoDiv.appendChild(starIcon4);
+                houseInfoDiv.appendChild(starIcon5);
+                houseInfoDiv.appendChild(housePriceDiv);
+
+                houseDiv.appendChild(houseImgDiv);
+                houseDiv.appendChild(houseInfoDiv);
+
+                propertiesContainer.appendChild(houseDiv);
+            });
+            })
+            .catch(error => console.error('Error fetching properties:', error));
+		}
+        
+        
+        
     });
 });	
 
@@ -492,26 +614,23 @@ function fetchPropertiesByLocationAndNumberofGuest(location,numberOfGuest,pageNu
 		}else{
 			const pageNumbers = document.querySelectorAll('.pagination span');
 
-// Variable to store the current page number
+
 let pagenumber = 1;
 
-// Add event listener to each span element
+
 pageNumbers.forEach(span => {
     span.addEventListener('click', function() {
-        // Extract the page number from the span's text content
+       
         pagenumber = parseInt(span.textContent);
 
-        // Remove 'current' class from all spans
+     
         pageNumbers.forEach(span => {
             span.classList.remove('current');
         });
 
-        // Add 'current' class to the clicked span
+   
         span.classList.add('current');
 
-        // Perform any other actions you need here
-
-        // For demonstration, log the updated page number
         console.log('Current page number:', pagenumber);
         propertiesContainer.innerHTML = '';
 
@@ -528,6 +647,286 @@ pageNumbers.forEach(span => {
 	window.onload = function() {
     	getQuery();
 	};
+    
+    
+	const priceLowToHighOption = document.getElementById('priceLowToHigh');
+	const priceHighToLowOption = document.getElementById('priceHighToLow');
+
+// Add event listeners to the sorting options
+priceLowToHighOption.addEventListener('click', () => {
+  // Call function to sort properties by price low to high
+  sortSortedPropertiesByPrice("asc");
+  flag = true;
+});
+
+priceHighToLowOption.addEventListener('click', () => {
+  // Call function to sort properties by price high to low
+  sortSortedPropertiesByPrice("desc");
+  flag = true;
+});
+
+// Function to sort properties by price low to high
+function sortSortedPropertiesByPrice(direction) {
+  // Your sorting logic here
+  
+  	if(count == 0){
+			propertiesContainer.innerHTML = '';
+		}
+		count++;
+		 
+		
+		var storedQuery = localStorage.getItem("query");
+		
+		var query = JSON.parse(storedQuery);
+		
+		console.log('Location:', query.location);
+        console.log('Guest:', query.guest);
+		
+		const field = "price";
+        const location = query.location; 
+        const numberOfGuest = query.guest; 
+        const pageNumber = 1; 
+        const numberOfRecords = 3;
+        const propertyType = propType;
+        const pageNumbers = document.querySelectorAll('.pagination span');
+        
+        
+        // normal fetch when pagenumber is 1
+        
+        const uri = `http://localhost:8888/property/getSortedPropertyTypeListByLocationByNumberofGuestPageWise/${pageNumber}/${propType}/${location}/${numberOfGuest}/${direction}/${field}?NumberofRecords=3`;
+		
+ 
+        fetch(uri)
+            .then(response => response.json())
+            .then(data => {
+                
+			console.log(data);
+			alert("normal fetch");
+			const propertiesContainer = document.getElementById('propertiesContainer');
+        	propertiesContainer.innerHTML = '';
+            const propertyNumbers = document.createElement('p');
+            propertyNumbers.textContent = "200+ Options";
+
+            const Locationdetails = document.createElement('h1');
+            Locationdetails.textContent = "Recommended Places In " + location;
+
+            propertiesContainer.appendChild(propertyNumbers);
+            propertiesContainer.appendChild(Locationdetails);
+
+
+            data.forEach(property => {
+                const houseDiv = document.createElement('div');
+                houseDiv.classList.add('house');
+
+				houseDiv.dataset.propertyId = property.propertyId;
+
+
+    houseDiv.addEventListener('click', function() {
+
+        const propertyId = this.dataset.propertyId;
+        
+        localStorage.setItem('propertyId', propertyId);
+       
+         window.location.href = 'http://localhost:8888/property/propertyDetails'; 
+    });
+
+                const houseImgDiv = document.createElement('div');
+                houseImgDiv.classList.add('house-img');
+
+                const img = document.createElement('img');
+                img.src = property.image;
+                img.alt = property.propertyName;
+
+                houseImgDiv.appendChild(img);
+
+                const houseInfoDiv = document.createElement('div');
+                houseInfoDiv.classList.add('house-info');
+
+                const propertyNameP = document.createElement('p');
+                propertyNameP.textContent = "Private " + propertyType+ " in " + property.location;
+
+                const propertyTypeH3 = document.createElement('h3');
+                propertyTypeH3.textContent = property.propertyName;
+
+                const amenities = document.createElement('p');
+                amenities.textContent = "1 Bedroom / 1 Bathroom / wifi / Kitchen";
+
+                const starIcon1 = document.createElement('i');
+                starIcon1.classList.add('fa-solid', 'fa-star');
+                const starIcon2 = document.createElement('i');
+                starIcon2.classList.add('fa-solid', 'fa-star');
+                const starIcon3 = document.createElement('i');
+                starIcon3.classList.add('fa-solid', 'fa-star');
+                const starIcon4 = document.createElement('i');
+                starIcon4.classList.add('fa-solid', 'fa-star-half-stroke');
+                const starIcon5 = document.createElement('i');
+                starIcon5.classList.add('fa-regular', 'fa-star');
+
+                const housePriceDiv = document.createElement('div');
+                housePriceDiv.classList.add('house-price');
+
+                const GuestLimit = document.createElement('p');
+                GuestLimit.textContent = property.capacity + " Guests";
+
+                const propertyPrice = document.createElement('h4');
+                propertyPrice.textContent = "₹ " + property.price + "/ day";
+
+                housePriceDiv.appendChild(GuestLimit);
+                housePriceDiv.appendChild(propertyPrice);
+
+                houseInfoDiv.appendChild(propertyNameP);
+                houseInfoDiv.appendChild(propertyTypeH3);
+                houseInfoDiv.appendChild(amenities);
+                houseInfoDiv.appendChild(starIcon1);
+                houseInfoDiv.appendChild(starIcon2);
+                houseInfoDiv.appendChild(starIcon3);
+                houseInfoDiv.appendChild(starIcon4);
+                houseInfoDiv.appendChild(starIcon5);
+                houseInfoDiv.appendChild(housePriceDiv);
+
+                houseDiv.appendChild(houseImgDiv);
+                houseDiv.appendChild(houseInfoDiv);
+
+                propertiesContainer.appendChild(houseDiv);
+            });
+            })
+            .catch(error => console.error('Error fetching properties:', error));
+        
+        
+        // here is the error bcz the compiler is not enters pageNumbers.forEach method 
+        
+        pageNumbers.forEach(span => {
+    	span.addEventListener('click', function() {
+        
+        pagenumber = parseInt(span.textContent);
+
+        
+        pageNumbers.forEach(span => {
+            span.classList.remove('current');
+        });
+
+       
+        span.classList.add('current');
+
+        const propertiesContainer = document.getElementById('propertiesContainer');
+        propertiesContainer.innerHTML = '';
+
+        
+        const uri = `http://localhost:8888/property/getSortedPropertyTypeListByLocationByNumberofGuestPageWise/${pagenumber}/${propType}/${location}/${numberOfGuest}/${direction}/${field}?NumberofRecords=3`;
+		
+		if(flag){
+			
+			
+			
+        fetch(uri)
+            .then(response => response.json())
+            .then(data => {
+                
+			console.log(data);
+			alert("fetch on pagenumber click inside sorted properties");
+			const propertiesContainer = document.getElementById('propertiesContainer');
+        	propertiesContainer.innerHTML = '';
+            const propertyNumbers = document.createElement('p');
+            propertyNumbers.textContent = "200+ Options";
+
+            const Locationdetails = document.createElement('h1');
+            Locationdetails.textContent = "Recommended Places In " + location;
+
+            propertiesContainer.appendChild(propertyNumbers);
+            propertiesContainer.appendChild(Locationdetails);
+
+            
+            data.forEach(property => {
+                const houseDiv = document.createElement('div');
+                houseDiv.classList.add('house');
+
+				houseDiv.dataset.propertyId = property.propertyId;
+
+    
+    houseDiv.addEventListener('click', function() {
+        
+        const propertyId = this.dataset.propertyId;
+        
+        
+        localStorage.setItem('propertyId', propertyId);
+        
+        
+         window.location.href = 'http://localhost:8888/property/propertyDetails'; 
+    });
+
+                const houseImgDiv = document.createElement('div');
+                houseImgDiv.classList.add('house-img');
+
+                const img = document.createElement('img');
+                img.src = property.image;
+                img.alt = property.propertyName;
+
+                houseImgDiv.appendChild(img);
+
+                const houseInfoDiv = document.createElement('div');
+                houseInfoDiv.classList.add('house-info');
+
+                const propertyNameP = document.createElement('p');
+                propertyNameP.textContent = "Private " + propertyType+ " in " + property.location;
+
+                const propertyTypeH3 = document.createElement('h3');
+                propertyTypeH3.textContent = property.propertyName;
+
+                const amenities = document.createElement('p');
+                amenities.textContent = "1 Bedroom / 1 Bathroom / wifi / Kitchen";
+
+                const starIcon1 = document.createElement('i');
+                starIcon1.classList.add('fa-solid', 'fa-star');
+                const starIcon2 = document.createElement('i');
+                starIcon2.classList.add('fa-solid', 'fa-star');
+                const starIcon3 = document.createElement('i');
+                starIcon3.classList.add('fa-solid', 'fa-star');
+                const starIcon4 = document.createElement('i');
+                starIcon4.classList.add('fa-solid', 'fa-star-half-stroke');
+                const starIcon5 = document.createElement('i');
+                starIcon5.classList.add('fa-regular', 'fa-star');
+
+                const housePriceDiv = document.createElement('div');
+                housePriceDiv.classList.add('house-price');
+
+                const GuestLimit = document.createElement('p');
+                GuestLimit.textContent = property.capacity + " Guests";
+
+                const propertyPrice = document.createElement('h4');
+                propertyPrice.textContent = "₹ " + property.price + "/ day";
+
+                housePriceDiv.appendChild(GuestLimit);
+                housePriceDiv.appendChild(propertyPrice);
+
+                houseInfoDiv.appendChild(propertyNameP);
+                houseInfoDiv.appendChild(propertyTypeH3);
+                houseInfoDiv.appendChild(amenities);
+                houseInfoDiv.appendChild(starIcon1);
+                houseInfoDiv.appendChild(starIcon2);
+                houseInfoDiv.appendChild(starIcon3);
+                houseInfoDiv.appendChild(starIcon4);
+                houseInfoDiv.appendChild(starIcon5);
+                houseInfoDiv.appendChild(housePriceDiv);
+
+                houseDiv.appendChild(houseImgDiv);
+                houseDiv.appendChild(houseInfoDiv);
+
+                propertiesContainer.appendChild(houseDiv);
+            });
+            })
+            .catch(error => console.error('Error fetching properties:', error));
+		}
+        
+        
+        
+    });
+});	
+
+  
+  console.log('Sorting properties by price low to high');
+}
+
+
     
     
     </script>
